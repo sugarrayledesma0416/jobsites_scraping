@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTransition } from "react";
 import { Spinner } from "@/components/Spinner";
@@ -62,16 +61,5 @@ export function Pagination({ page, hasMore }: PaginationProps) {
         </button>
       </div>
     </div>
-  );
-}
-
-export function ViewJobLink({ jobId }: { jobId: string }) {
-  return (
-    <Link
-      href={`/jobs/${jobId}`}
-      className="inline-flex rounded-lg border border-zinc-600 bg-zinc-800/80 px-3 py-1 text-xs font-medium text-zinc-200 transition-colors hover:border-zinc-500 hover:bg-zinc-700"
-    >
-      View
-    </Link>
   );
 }

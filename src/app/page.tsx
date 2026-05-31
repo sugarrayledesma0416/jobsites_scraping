@@ -1,7 +1,8 @@
 import { Suspense } from "react";
 import { AppHeader } from "@/components/AppHeader";
+import { JobsUrlJobOpener } from "@/components/JobsUrlJobOpener";
 import { JobsLoading } from "@/components/JobsLoading";
-import { JobsTable } from "@/components/JobsTable";
+import { JobsTableClient } from "@/components/JobsTableClient";
 import { Pagination } from "@/components/Pagination";
 import { fetchJobs } from "@/lib/api";
 
@@ -33,7 +34,7 @@ async function JobsPageContent({
     return (
       <>
         <Pagination page={page} hasMore={hasMore} />
-        <JobsTable jobs={jobs} startIndex={startIndex} />
+        <JobsTableClient jobs={jobs} startIndex={startIndex} />
         <Pagination page={page} hasMore={hasMore} />
       </>
     );
@@ -56,6 +57,9 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   return (
     <main className="mx-auto min-h-full w-full max-w-[1400px] flex-1 px-4 py-8 sm:px-6 lg:px-8">
       <AppHeader active="jobs" />
+      <Suspense fallback={null}>
+        <JobsUrlJobOpener />
+      </Suspense>
       <Suspense key={pageKey} fallback={<JobsLoading />}>
         <JobsPageContent searchParams={params} />
       </Suspense>

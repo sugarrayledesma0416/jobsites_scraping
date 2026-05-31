@@ -1,13 +1,18 @@
-import { JobRowActions } from "@/components/JobRowActions";
+"use client";
+
+import { CopyDescriptionButton } from "@/components/CopyDescriptionButton";
+import { useJobModal } from "@/components/JobModalProvider";
 import { formatRelativeTime, truncateLink } from "@/lib/jobs";
 import type { Job } from "@/lib/types";
 
-interface JobsTableProps {
+interface JobsTableClientProps {
   jobs: Job[];
   startIndex: number;
 }
 
-export function JobsTable({ jobs, startIndex }: JobsTableProps) {
+export function JobsTableClient({ jobs, startIndex }: JobsTableClientProps) {
+  const { openJob } = useJobModal();
+
   return (
     <div className="overflow-x-auto rounded-xl border border-zinc-800 bg-zinc-950/50">
       <table className="w-full min-w-[1100px] border-collapse text-left text-sm">
@@ -88,7 +93,23 @@ export function JobsTable({ jobs, startIndex }: JobsTableProps) {
                   )}
                 </td>
                 <td className="px-4 py-3">
-                  <JobRowActions jobId={job.id} jobTitle={job.title} />
+                  <div className="flex flex-wrap items-center gap-2">
+                    <CopyDescriptionButton
+                      jobId={job.id}
+                      jobTitle={job.title}
+                    />
+                    <button
+                      type="button"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        openJob(job.id);
+                      }}
+                      className="inline-flex rounded-lg border border-zinc-600 bg-zinc-800/80 px-3 py-1 text-xs font-medium text-zinc-200 transition-colors hover:border-zinc-500 hover:bg-zinc-700"
+                    >
+                      View
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))

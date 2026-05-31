@@ -15,16 +15,10 @@ export async function GET(_request: Request, context: RouteContext) {
       return NextResponse.json({ message: "Job not found" }, { status: 404 });
     }
 
-    return NextResponse.json({
-      id: job.id,
-      title: job.title,
-      company: job.company,
-      link: job.link,
-      description: job.description,
-    });
+    return NextResponse.json(job);
   } catch (error) {
     const message =
-      error instanceof Error ? error.message : "Failed to load job description";
+      error instanceof Error ? error.message : "Failed to load job";
 
     return NextResponse.json({ message }, { status: 500 });
   }
