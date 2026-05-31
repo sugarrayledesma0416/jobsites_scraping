@@ -1,4 +1,4 @@
-import { ViewJobLink } from "@/components/Pagination";
+import { JobRowActions } from "@/components/JobRowActions";
 import { formatRelativeTime, truncateLink } from "@/lib/jobs";
 import type { Job } from "@/lib/types";
 
@@ -88,7 +88,7 @@ export function JobsTable({ jobs, startIndex }: JobsTableProps) {
                   )}
                 </td>
                 <td className="px-4 py-3">
-                  <ViewJobLink jobId={job.id} />
+                  <JobRowActions jobId={job.id} jobTitle={job.title} />
                 </td>
               </tr>
             ))
